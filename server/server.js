@@ -41,7 +41,7 @@ app.post('/api/dictionary', (req, res) => {
 });
 
 app.get('/', (req, res) => {
-  res.send('API Backend LobaLang fonctionne avec succès !');
+  res.send('API Backend MUTENDEZI WA KILEGA fonctionne avec succès !');
 });
 
 app.listen(PORT, () => console.log(`Serveur démarré sur http://localhost:${PORT}`));
