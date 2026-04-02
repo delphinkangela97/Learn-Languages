@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { BookOpen, Compass, User, Globe2, ArrowRight, Play, CheckCircle2, PlusCircle, BookText } from 'lucide-react';
+import { BookOpen, Compass, User, Globe2, ArrowRight, Play, CheckCircle2, PlusCircle, BookText, Volume2 } from 'lucide-react';
 import { motion } from 'framer-motion';
 
 function App() {
@@ -194,6 +194,7 @@ function App() {
                       <th className="p-4 font-semibold text-slate-600">Kilega</th>
                       <th className="p-4 font-semibold text-slate-600">Français</th>
                       <th className="p-4 font-semibold text-slate-600">Catégorie</th>
+                      <th className="p-4 font-semibold text-slate-600">Audio</th>
                     </tr>
                   </thead>
                   <tbody>
@@ -203,6 +204,11 @@ function App() {
                         <td className="p-4 text-slate-700">{word.french}</td>
                         <td className="p-4 text-sm text-slate-500">
                           <span className="bg-slate-100 px-3 py-1 rounded-full font-medium">{word.type}</span>
+                        </td>
+                        <td className="p-4">
+                          <button className="text-slate-400 hover:text-brand-primary transition bg-slate-50 p-2 rounded-full hover:bg-blue-50" title="Écouter la prononciation du mot Kilega">
+                            <Volume2 className="h-5 w-5" />
+                          </button>
                         </td>
                       </tr>
                     ))}
@@ -246,6 +252,20 @@ function App() {
           </div>
         </section>
       )}
+
+      {/* Footer */}
+      <footer className="w-full bg-slate-900 text-slate-400 py-8 mt-auto rounded-t-3xl">
+        <div className="max-w-7xl mx-auto px-6 flex flex-col md:flex-row justify-between items-center gap-4">
+          <div className="flex items-center gap-2">
+            <Globe2 className="h-6 w-6 text-brand-primary" />
+            <span className="text-xl font-bold text-white">LobaLang</span>
+          </div>
+          <p className="text-sm">Pour la préservation de la culture Lega (Kirega) RDC.</p>
+          <div className="flex gap-4">
+            <a href="#" className="hover:text-brand-primary transition">Contribuer</a>
+          </div>
+        </div>
+      </footer>
     </div>
   );
 }
