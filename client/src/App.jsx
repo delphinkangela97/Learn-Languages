@@ -1,16 +1,43 @@
 import React, { useState, useEffect } from 'react';
-import { BookOpen, Compass, User, Globe2, ArrowRight, Play, CheckCircle2 } from 'lucide-react';
+import { BookOpen, Compass, User, Globe2, ArrowRight, Play, CheckCircle2, PlusCircle, BookText, Volume2 } from 'lucide-react';
 import { motion } from 'framer-motion';
 
 function App() {
   const [lessons, setLessons] = useState([]);
+  const [dictionary, setDictionary] = useState([]);
+  const [activeTab, setActiveTab] = useState('home');
+  const [newWord, setNewWord] = useState({ kilega: '', french: '', type: 'Général' });
 
   useEffect(() => {
     fetch('http://localhost:5000/api/lessons')
       .then(res => res.json())
       .then(data => setLessons(data))
       .catch(err => console.error('Erreur API:', err));
+      
+    fetchDictionary();
   }, []);
+
+  const fetchDictionary = () => {
+    fetch('http://localhost:5000/api/dictionary')
+      .then(res => res.json())
+      .then(data => setDictionary(data))
+      .catch(err => console.error('Erreur API Dico:', err));
+  };
+
+  const handleAddWord = (e) => {
+    e.preventDefault();
+    fetch('http://localhost:5000/api/dictionary', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(newWord)
+    })
+    .then(res => res.json())
+    .then(data => {
+      setDictionary([...dictionary, data]);
+      setNewWord({ kilega: '', french: '', type: 'Général' });
+    })
+    .catch(err => console.error('Erreur lors de l\'ajout:', err));
+  };
 
   return (
     <div className="min-h-screen bg-slate-50 flex flex-col items-center">
@@ -24,8 +51,8 @@ function App() {
           </span>
         </div>
         <div className="hidden md:flex items-center gap-8 text-slate-600 font-medium tracking-wide">
-          <a href="#" className="text-brand-primary font-semibold hover:text-blue-700 transition">Apprendre</a>
-          <a href="#" className="hover:text-brand-primary transition">Ma Progression</a>
+          <button onClick={() => setActiveTab('home')} className={`${activeTab === 'home' ? 'text-brand-primary font-bold' : 'hover:text-brand-primary'} transition`}>Apprendre</button>
+          <button onClick={() => setActiveTab('dictionary')} className={`${activeTab === 'dictionary' ? 'text-brand-primary font-bold' : 'hover:text-brand-primary'} transition flex items-center gap-2`}><BookText className="h-4 w-4"/> Dictionnaire</button>
           <a href="#" className="hover:text-brand-primary transition">Classement</a>
         </div>
         <button className="bg-brand-primary text-white px-6 py-2 rounded-full font-semibold hover:bg-blue-700 transition shadow-lg hover:shadow-brand-primary/30 flex items-center gap-2">
@@ -33,6 +60,8 @@ function App() {
         </button>
       </nav>
 
+      {activeTab === 'home' && (
+      <>
       {/* Hero Section */}
       <main className="w-full max-w-7xl flex flex-col md:flex-row items-center justify-between p-6 mt-12 mb-24 gap-12">
         <motion.div 
@@ -144,6 +173,99 @@ function App() {
           )}
         </div>
       </section>
+      </>
+      )}
+
+      {/* Dictionary Section */}
+      {activeTab === 'dictionary' && (
+        <section className="w-full max-w-7xl p-6 mb-24">
+          <div className="flex flex-col lg:flex-row gap-12">
+            
+            {/* List of words */}
+            <div className="flex-1">
+               <h2 className="text-3xl font-bold text-slate-900 flex items-center gap-3 mb-6">
+                <BookText className="h-8 w-8 text-brand-primary" />
+                Dictionnaire Kilega
+              </h2>
+              <div className="bg-white rounded-2xl shadow-sm border border-slate-100 overflow-hidden">
+                <table className="w-full text-left">
+                  <thead className="bg-slate-50 border-b border-slate-100">
+                    <tr>
+                      <th className="p-4 font-semibold text-slate-600">Kilega</th>
+                      <th className="p-4 font-semibold text-slate-600">Français</th>
+                      <th className="p-4 font-semibold text-slate-600">Catégorie</th>
+                      <th className="p-4 font-semibold text-slate-600">Audio</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {dictionary.map((word) => (
+                      <tr key={word.id} className="border-b border-slate-50 hover:bg-slate-50 transition">
+                        <td className="p-4 font-bold text-brand-primary text-lg">{word.kilega}</td>
+                        <td className="p-4 text-slate-700">{word.french}</td>
+                        <td className="p-4 text-sm text-slate-500">
+                          <span className="bg-slate-100 px-3 py-1 rounded-full font-medium">{word.type}</span>
+                        </td>
+                        <td className="p-4">
+                          <button className="text-slate-400 hover:text-brand-primary transition bg-slate-50 p-2 rounded-full hover:bg-blue-50" title="Écouter la prononciation du mot Kilega">
+                            <Volume2 className="h-5 w-5" />
+                          </button>
+                        </td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              </div>
+            </div>
+
+            {/* Add word form */}
+            <div className="w-full lg:w-96 bg-white p-8 rounded-3xl shadow-xl border border-slate-100 h-fit">
+              <h3 className="text-2xl font-bold text-slate-900 mb-6 flex items-center gap-2">
+                <PlusCircle className="h-6 w-6 text-lega-orange" />
+                Ajouter un mot
+              </h3>
+              <form onSubmit={handleAddWord} className="space-y-5">
+                <div>
+                  <label className="block text-sm font-semibold text-slate-700 mb-2">Mot en Kilega 🇨🇩</label>
+                  <input required value={newWord.kilega} onChange={e => setNewWord({...newWord, kilega: e.target.value})} type="text" className="w-full border-2 border-slate-200 rounded-xl p-3 focus:outline-none focus:border-brand-primary transition" placeholder="Ex: Isango" />
+                </div>
+                <div>
+                  <label className="block text-sm font-semibold text-slate-700 mb-2">Traduction Française 🇫🇷</label>
+                  <input required value={newWord.french} onChange={e => setNewWord({...newWord, french: e.target.value})} type="text" className="w-full border-2 border-slate-200 rounded-xl p-3 focus:outline-none focus:border-brand-primary transition" placeholder="Ex: L'amitié" />
+                </div>
+                <div>
+                  <label className="block text-sm font-semibold text-slate-700 mb-2">Catégorie</label>
+                  <select value={newWord.type} onChange={e => setNewWord({...newWord, type: e.target.value})} className="w-full border-2 border-slate-200 rounded-xl p-3 focus:outline-none focus:border-brand-primary bg-white transition">
+                    <option>Général</option>
+                    <option>Salutation</option>
+                    <option>Politesse</option>
+                    <option>Famille</option>
+                    <option>Nature</option>
+                    <option>Proverbe (Bwami)</option>
+                  </select>
+                </div>
+                <button type="submit" className="w-full bg-brand-primary hover:bg-blue-700 text-white text-lg font-bold py-4 px-4 rounded-xl transition shadow-lg shadow-brand-primary/40 mt-4 flex justify-center gap-2">
+                  <PlusCircle /> Sauvegarder
+                </button>
+              </form>
+            </div>
+
+          </div>
+        </section>
+      )}
+
+      {/* Footer */}
+      <footer className="w-full bg-slate-900 text-slate-400 py-8 mt-auto rounded-t-3xl">
+        <div className="max-w-7xl mx-auto px-6 flex flex-col md:flex-row justify-between items-center gap-4">
+          <div className="flex items-center gap-2">
+            <Globe2 className="h-6 w-6 text-brand-primary" />
+            <span className="text-xl font-bold text-white">LobaLang</span>
+          </div>
+          <p className="text-sm">Pour la préservation de la culture Lega (Kirega) RDC.</p>
+          <div className="flex gap-4">
+            <a href="#" className="hover:text-brand-primary transition">Contribuer</a>
+          </div>
+        </div>
+      </footer>
     </div>
   );
 }

@@ -17,6 +17,29 @@ app.get('/api/lessons', (req, res) => {
   res.json(kilegaLessons);
 });
 
+let dictionary = [
+  { id: 1, kilega: "Mbwakya", french: "Bonjour (le matin)", type: "Salutation" },
+  { id: 2, kilega: "Kasinge", french: "Merci", type: "Politesse" },
+  { id: 3, kilega: "Mwenga", french: "Bienvenue", type: "Salutation" },
+  { id: 4, kilega: "Lutenda", french: "Règle de vie / Proverbe", type: "Proverbe (Bwami)" },
+  { id: 5, kilega: "Mutima", french: "Le cœur / L'âme", type: "Sagesse" }
+];
+
+app.get('/api/dictionary', (req, res) => {
+  res.json(dictionary);
+});
+
+app.post('/api/dictionary', (req, res) => {
+  const newWord = {
+    id: dictionary.length + 1,
+    kilega: req.body.kilega,
+    french: req.body.french,
+    type: req.body.type || "Général"
+  };
+  dictionary.push(newWord);
+  res.status(201).json(newWord);
+});
+
 app.get('/', (req, res) => {
   res.send('API Backend LobaLang fonctionne avec succès !');
 });
