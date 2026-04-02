@@ -1,4 +1,4 @@
-Write-Host "LobaLang: Demarrage du projet..." -ForegroundColor Yellow
+Write-Host "MUTENDEZI WA KILEGA: Demarrage du projet..." -ForegroundColor Yellow
 Start-Process powershell -ArgumentList "-NoExit -Command `"cd server; npm start`""
 Write-Host ">> Serveur API demarre" -ForegroundColor Green
 Start-Sleep -Seconds 2

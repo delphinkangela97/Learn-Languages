@@ -1,9 +1,9 @@
-# 🌍 LobaLang : Préservation & Apprentissage du Kilega (Kirega)
+# 🌍 MUTENDEZI WA KILEGA : Préservation & Apprentissage du Kilega (Kirega)
 
-![Banner Placeholder](https://via.placeholder.com/1000x300/007FFF/ffffff?text=LobaLang+-+Culture+Lega)
+![Banner Placeholder](https://via.placeholder.com/1000x300/007FFF/ffffff?text=MUTENDEZI+WA+KILEGA+-+Culture+Lega)
 
 ## 📖 À propos du projet
-**LobaLang** est une plateforme éducative interactive dédiée à l'apprentissage des dialectes de la République Démocratique du Congo. L'objectif premier et le cœur de cette application est de **faire valoir, préserver et transmettre la langue et la richesse de la culture Lega (Kilega/Kirega)**.
+**MUTENDEZI WA KILEGA** est une plateforme éducative interactive dédiée à l'apprentissage des dialectes de la République Démocratique du Congo. L'objectif premier et le cœur de cette application est de **faire valoir, préserver et transmettre la langue et la richesse de la culture Lega (Kilega/Kirega)**.
 
 Ce projet numérique ambitionne de rapprocher la diaspora, les chercheurs et la jeune génération congolaise de leurs racines à travers un outil ludique et moderne.
 
