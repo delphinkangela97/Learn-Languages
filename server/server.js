@@ -20,7 +20,9 @@ app.get('/api/lessons', (req, res) => {
 let dictionary = [
   { id: 1, kilega: "Mbwakya", french: "Bonjour (le matin)", type: "Salutation" },
   { id: 2, kilega: "Kasinge", french: "Merci", type: "Politesse" },
-  { id: 3, kilega: "Mwenga", french: "Bienvenue", type: "Salutation" }
+  { id: 3, kilega: "Mwenga", french: "Bienvenue", type: "Salutation" },
+  { id: 4, kilega: "Lutenda", french: "Règle de vie / Proverbe", type: "Proverbe (Bwami)" },
+  { id: 5, kilega: "Mutima", french: "Le cœur / L'âme", type: "Sagesse" }
 ];
 
 app.get('/api/dictionary', (req, res) => {
