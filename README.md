@@ -1,55 +1,51 @@
-# 🌍 MUTENDEZI WA KILEGA : Préservation & Apprentissage du Kilega (Kirega)
+# 🌍 LANGE : Kilega Learning Dashboard
 
-![Banner Placeholder](https://via.placeholder.com/1000x300/007FFF/ffffff?text=MUTENDEZI+WA+KILEGA+-+Culture+Lega)
+Bienvenue sur le projet **LANGE**, une application web fullstack novatrice et immersive dédiée à l'apprentissage de la langue **Kilega / Kirega** (République Démocratique du Congo). 
 
-## 📖 À propos du projet
-**MUTENDEZI WA KILEGA** est une plateforme éducative interactive dédiée à l'apprentissage des dialectes de la République Démocratique du Congo. L'objectif premier et le cœur de cette application est de **faire valoir, préserver et transmettre la langue et la richesse de la culture Lega (Kilega/Kirega)**.
+L'interface a été entièrement forgée sur base d'un design moderne (Dark Mode, layout Premium, couleurs vibrantes) afin d'offrir l'expérience d'apprentissage la plus attrayante possible pour revaloriser nos langues locales.
 
-Ce projet numérique ambitionne de rapprocher la diaspora, les chercheurs et la jeune génération congolaise de leurs racines à travers un outil ludique et moderne.
+## ✨ Fonctionnalités Clés
 
-## ✨ Fonctionnalités Essentielles
-
-*   **📘 Dictionnaire Interactif (Focus Actuel)** : Un outil puissant permettant de chercher des traductions Français ↔ Kilega.
-*   **➕ Ajout Collaboratif de Mots** : Les locuteurs et passionnés pourront enrichir eux-mêmes le dictionnaire via une interface permettant de rajouter le mot, sa prononciation, et son contexte culturel (ex: lié au Bwami).
-*   **🎓 Parcours d'Apprentissage** : Des leçons progressives (Salutations, Nombres, Vocabulaire du quotidien, Proverbes).
-*   **🔊 Prononciation Audio** (À venir).
+- 🎨 **Interface Dark Mode Premium** : Un design moderne, épuré et accrocheur, parfait pour de longues sessions d'apprentissage.
+- 📊 **Tableau de Bord Étudiant (Dashboard)** : Visualisez le niveau de l'utilisateur, le nombre de leçons passées (`126 level`, `14 quizzes`, `170 hours`), et suivez sa progression de la semaine via un graphique interactif en barres.
+- 🗣️ **Pratique de la parole (AI Speaking)** : Un outil de simulation pour s'exercer à lire et parler la langue de façon assistée par une intelligence artificielle, incluant un visuel d'ondes sonores (Waveform).
+- 📚 **Catégories & Révisions Rapides (Fast Repeat)** : Accédez rapidement à des exercices de vocabulaire de 10 min, de grammaire et d'écoute. Possibilité de choisir des thématiques spécifiques (Food, Traveling, Work...).
+- 🗄️ **Backend Interactif** : L'API Node.js/Express connectée charge de véritables données, fournissant notamment **50 mots Kilega essentiels** avec leur traduction catégorisée en français.
 
 ## 🛠️ Stack Technique
-Cette application fullstack est divisée en deux parties :
-*   **Interface Graphique (Client)** : Construit en `React.js` (avec Vite), stylisé avec `TailwindCSS v3` et enrichi en animations par `Framer Motion`.
-*   **Serveur & API (Backend)** : Construit en `Node.js` avec le framework `Express`.
 
-## 🚀 Comment démarrer l'application sur votre machine ?
+- **Frontend (Client)** : `React.js` propulsé par `Vite`, stylisation avancée via `TailwindCSS v3`, avec les icônes `Lucide-React`.
+- **Backend (Serveur)** : `Node.js` et `Express.js`, servant une base de données simulée (In-memory DB pour le prototypage immédiat).
 
-### 1. Prérequis
-Assurez-vous d'avoir installé **[Node.js](https://nodejs.org/en)** sur votre système.
+## 🚀 Installation & Démarrage
 
-### 2. Démarrage Automatique (Recommandé sur Windows)
-Exécutez le script PowerShell inclus à la racine :
-```powershell
-.\start.ps1
-```
+Ce projet nécessite [Node.js](https://nodejs.org/) installé sur votre poste. L'Application est composée de deux parties à démarrer simultanément.
 
-### 3. Démarrage Manuel (Alternative)
-Il faut lancer le serveur et le client indépendamment. Ouvrez deux terminaux différents :
+### 1. Démarrer l'API (Backend)
 
-**Terminal 1 (Backend) :**
+Ouvrez un terminal, placez-vous dans le dossier `server` :
+
 ```bash
 cd server
 npm install
-npm start
-# Le serveur tourne sur http://localhost:5000
+npm run dev
+# L'API tourne sur http://localhost:5000
 ```
+*(Le backend sert nos 50 mots en Kilega, nos données statistiques et gère les requêtes)*
 
-**Terminal 2 (Frontend) :**
+### 2. Démarrer l'Interface Graphique (Frontend)
+
+Ouvrez un **deuxième** terminal, placez-vous dans le dossier `client` :
+
 ```bash
 cd client
 npm install
 npm run dev
-# L'application tourne sur http://localhost:5173
+# L'App React est accessible sur http://localhost:5173
 ```
 
-## 🤝 Contribuer et Développer (Branche `dev`)
-Nous codons actuellement sur la branche `dev`. La prochaine grande étape est de lier notre dictionnaire Kilega avec une base de données réelle pour permettre la fonctionnalité d'ajout de mots et de proverbes de sagesse Lega.
+Ouvrez ensuite cotre navigateur sur la page `http://localhost:5173` pour admirer le tableau de bord.
 
-*Mbwa kya !* (Bonjour ! Rejoignez-nous ! )
+## 🤝 Contribution
+
+Les commits sont poussés sur la branche principale après validation stricte des signatures (règles Github). Toute amélioration du design, et spécifiquement l'ajout de nouvelles leçons audio en Kilega, sont les bienvenues !
