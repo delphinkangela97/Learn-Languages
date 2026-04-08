@@ -7,6 +7,21 @@
 @layer base {
   body {
     font-family: 'Outfit', sans-serif;
-    @apply bg-slate-50 text-slate-900;
+    @apply bg-dark-bg text-light-text;
   }
+}
+
+/* Custom scrollbar for better look in dark mode */
+::-webkit-scrollbar {
+  width: 8px;
+}
+::-webkit-scrollbar-track {
+  background: #141416; 
+}
+::-webkit-scrollbar-thumb {
+  background: #2a2a35; 
+  border-radius: 4px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #5b42f3; 
 }
