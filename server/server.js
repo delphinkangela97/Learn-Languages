@@ -1,5 +1,6 @@
 import express from 'express';
 import cors from 'cors';
+import { kilegaWords } from './data/kilega_words.js';
 
 const app = express();
 const PORT = process.env.PORT || 5000;
@@ -7,41 +8,67 @@ const PORT = process.env.PORT || 5000;
 app.use(cors());
 app.use(express.json());
 
-const kilegaLessons = [
-  { id: 1, title: "Les Salutations", description: "Apprenez à dire bonjour (Mbwakya), et à demander comment ça va.", level: "Débutant" },
-  { id: 2, title: "La Famille et le Clan", description: "Apprenez à nommer les membres de votre famille (Tata, Mama, Muku).", level: "Débutant" },
-  { id: 3, title: "Au Marché", description: "Vocabulaire essentiel pour négocier et compter en Kilega.", level: "Intermédiaire" }
-];
+// Mock DB
+const db = {
+  users: [
+    { id: 1, name: "Marianna Carson", role: "student", level: 126, quizzesCompleted: 14, hoursSpent: 170 }
+  ],
+  words: kilegaWords,
+  forumMessages: [
+    { id: 1, author: "Marianna Carson", text: "Quelqu'un pour pratiquer le Kilega ce soir ?", timestamp: new Date() }
+  ],
+  quizzes: [
+    { id: 1, title: "Vocabulaire de base", questions: 10 }
+  ]
+};
 
-app.get('/api/lessons', (req, res) => {
-  res.json(kilegaLessons);
+// Users routes
+app.get('/api/user', (req, res) => {
+  // Mock logged in user
+  res.json(db.users[0]);
 });
 
-let dictionary = [
-  { id: 1, kilega: "Mbwakya", french: "Bonjour (le matin)", type: "Salutation" },
-  { id: 2, kilega: "Kasinge", french: "Merci", type: "Politesse" },
-  { id: 3, kilega: "Mwenga", french: "Bienvenue", type: "Salutation" },
-  { id: 4, kilega: "Lutenda", french: "Règle de vie / Proverbe", type: "Proverbe (Bwami)" },
-  { id: 5, kilega: "Mutima", french: "Le cœur / L'âme", type: "Sagesse" }
-];
-
-app.get('/api/dictionary', (req, res) => {
-  res.json(dictionary);
+app.post('/api/auth/login', (req, res) => {
+  // Mock login
+  res.json({ token: "mock_token", user: db.users[0] });
 });
 
-app.post('/api/dictionary', (req, res) => {
-  const newWord = {
-    id: dictionary.length + 1,
-    kilega: req.body.kilega,
-    french: req.body.french,
-    type: req.body.type || "Général"
+// Words & Vocabulary
+app.get('/api/words', (req, res) => {
+  res.json(db.words);
+});
+
+// Forum routes
+app.get('/api/forum', (req, res) => {
+  res.json(db.forumMessages);
+});
+
+app.post('/api/forum', (req, res) => {
+  const newMsg = {
+    id: db.forumMessages.length + 1,
+    author: db.users[0].name,
+    text: req.body.text,
+    timestamp: new Date()
   };
-  dictionary.push(newWord);
-  res.status(201).json(newWord);
+  db.forumMessages.push(newMsg);
+  res.status(201).json(newMsg);
+});
+
+// Trainings/Quizzes routes
+app.get('/api/trainings/summary', (req, res) => {
+  res.json({
+    vocabulary: { words: 12567, title: "Vocabulary" },
+    listening: { hoursAudio: 37, title: "Listening" },
+    grammar: { lessons: 60, title: "Grammar" }
+  });
+});
+
+app.get('/api/quizzes', (req, res) => {
+  res.json(db.quizzes);
 });
 
 app.get('/', (req, res) => {
-  res.send('API Backend MUTENDEZI WA KILEGA fonctionne avec succès !');
+  res.send('API Backend LobaLang (Kilega) fonctionne avec succès !');
 });
 
 app.listen(PORT, () => console.log(`Serveur démarré sur http://localhost:${PORT}`));
